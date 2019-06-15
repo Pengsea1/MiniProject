@@ -12,10 +12,13 @@ public class CategoryController {
 
     @Autowired
     CategoryService categoryService;
+
     @GetMapping("/categoryHome")
     String categoryHome(){
         return "redirect:/category";
     }
+
+
     @GetMapping("/category")
     String getCategory(ModelMap modelMap) {
         modelMap.addAttribute("categories", categoryService.findAll());
@@ -33,6 +36,7 @@ public class CategoryController {
     @GetMapping("/updatecate")
     String view(@RequestParam int id, ModelMap modelMap) {
         modelMap.addAttribute("category", categoryService.findById(id));
+        modelMap.addAttribute("");
         modelMap.addAttribute("st", -1);
         return "updateCate";
     }
@@ -45,9 +49,11 @@ public class CategoryController {
 
     @PostMapping("/addCategory")
     String AddNew(@ModelAttribute Category category) {
+        System.out.println(category);
         categoryService.add(category);
         return "redirect:/category";
     }
+
     @GetMapping("/deletecate")
     String deleteCategory(@RequestParam Integer id){
         categoryService.delete(id);
