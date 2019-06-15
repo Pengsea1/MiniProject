@@ -1,9 +1,10 @@
 package com.example.demo.service.CategoryService;
 import com.example.demo.repository.model.Category;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
-
+@Service
 public interface CategoryService {
     void add(Category category);
 
