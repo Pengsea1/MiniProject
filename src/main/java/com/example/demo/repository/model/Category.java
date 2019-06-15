@@ -1,9 +1,8 @@
 package com.example.demo.repository.model;
 
 public class Category {
-    int cateId;
-    String cateTitle;
-
+    public int cateId;
+    public String cateTitle;
 
     public Category(int cateId, String cateTitle) {
         this.cateId = cateId;
