@@ -5,20 +5,18 @@ import com.example.demo.service.CategoryService.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class CategoryController {
+
     @Autowired
     CategoryService categoryService;
 
     @GetMapping("/category")
     String getCategory(ModelMap modelMap) {
-
         modelMap.addAttribute("categories", categoryService.findAll());
+        System.out.println(categoryService.findAll());
         return "viewCategory";
     }
 
