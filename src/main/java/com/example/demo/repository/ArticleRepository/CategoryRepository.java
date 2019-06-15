@@ -31,4 +31,5 @@ public interface CategoryRepository {
 
     @Select("SELECT Max(CateId) FROM tbcategory")
     Integer getAutoId();
+
 }

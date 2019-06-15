@@ -24,6 +24,8 @@
     <title>Title</title>
 </head>
 <body>
+
+<div th:replace="fragment/header ::header"></div>
 <a href="/addCategory">
     <button type="button" class="btn btn-info">ADD</button>
 </a>
@@ -48,5 +50,6 @@
     </tr>
     </tbody>
 </table>
+<div th:replace="fragment/footer ::footer"></div>
 </body>
 </html>

@@ -12,7 +12,10 @@ public class CategoryController {
 
     @Autowired
     CategoryService categoryService;
-
+    @GetMapping("/categoryHome")
+    String categoryHome(){
+        return "redirect:/category";
+    }
     @GetMapping("/category")
     String getCategory(ModelMap modelMap) {
         modelMap.addAttribute("categories", categoryService.findAll());
