@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/main_layout">
 <head>
     <meta charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
@@ -25,7 +28,8 @@
 </head>
 <body>
 
-<div th:replace="fragment/header ::header"></div>
+<!--<div th:replace="fragment/header ::header"></div>-->
+<div layout:fragment="body">
 <form style="margin-left: 30%" th:action="${st!=-1} ? '/addArticle':'/updateArticle'" method="post" enctype="multipart/form-data" th:object="${article}">
     <fieldset>
         <legend  th:text="#{AMS}"></legend>
@@ -72,7 +76,8 @@
     <button th:text="${st!=-1} ? 'Add':'Update'" type="submit" class="btn btn-outline-primary waves-effect"></button>
     <a href="/cancel"><button type="button" class="btn btn-info">Cancel</button></a>
 </form>
-<div th:replace="fragment/footer ::footer"></div>
+</div>
+<!--<div th:replace="fragment/footer ::footer"></div>-->
 <script>
     function readURL(input) {
         if (input.files && input.files[0]) {

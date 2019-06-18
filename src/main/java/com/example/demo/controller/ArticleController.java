@@ -35,7 +35,7 @@ public class ArticleController {
 
     @GetMapping(value = {"/viewAll", "/index", "/"})
     public String showData(ModelMap modelMap) {
-        modelMap.addAttribute("articles", articleService.getByPage(1));
+//        modelMap.addAttribute("articles", articleService.getByPage(1));
         showBypage(1, modelMap);
         modelMap.addAttribute("total", articleService.findAll().size());
         modelMap.addAttribute("categories", categoryService.findAll());
@@ -44,23 +44,22 @@ public class ArticleController {
 
     @GetMapping("/search")
     public String SearchById(@RequestParam String title, ModelMap modelMap) {
-
         modelMap.addAttribute("articles", articleService.searchByTitle(title));
         modelMap.addAttribute("categories", categoryService.findAll());
+        modelMap.addAttribute("total", articleService.findAll().size());
         return "index";
     }
 
     @GetMapping("/filter")
     public String filterByCategory(@RequestParam Integer id, ModelMap modelMap) {
-
         modelMap.addAttribute("articles", articleService.searchByCategory(id));
         modelMap.addAttribute("categories", categoryService.findAll());
+
         return "index";
     }
 
     @GetMapping(value = {"/pagenation"})
     public String showBypage(@RequestParam(name = "page") int page, ModelMap modelMap) {
-        System.out.println(getPagenation().size());
 
         if (page == -2) {
             page = 1;
