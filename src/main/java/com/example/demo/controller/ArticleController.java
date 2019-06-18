@@ -35,7 +35,6 @@ public class ArticleController {
 
     @GetMapping(value = {"/viewAll", "/index", "/"})
     public String showData(ModelMap modelMap) {
-//        modelMap.addAttribute("articles", articleService.getByPage(1));
         showBypage(1, modelMap);
         modelMap.addAttribute("total", articleService.findAll().size());
         modelMap.addAttribute("categories", categoryService.findAll());
@@ -46,7 +45,8 @@ public class ArticleController {
     public String SearchById(@RequestParam String title, ModelMap modelMap) {
         modelMap.addAttribute("articles", articleService.searchByTitle(title));
         modelMap.addAttribute("categories", categoryService.findAll());
-        modelMap.addAttribute("total", articleService.findAll().size());
+        modelMap.addAttribute("total", articleService.searchByTitle(title).size());
+        modelMap.addAttribute("pages", 1);
         return "index";
     }
 
@@ -54,9 +54,11 @@ public class ArticleController {
     public String filterByCategory(@RequestParam Integer id, ModelMap modelMap) {
         modelMap.addAttribute("articles", articleService.searchByCategory(id));
         modelMap.addAttribute("categories", categoryService.findAll());
-
+        modelMap.addAttribute("total", articleService.searchByCategory(id).size());
+        modelMap.addAttribute("pages", 1);
         return "index";
     }
+
 
     @GetMapping(value = {"/pagenation"})
     public String showBypage(@RequestParam(name = "page") int page, ModelMap modelMap) {
@@ -81,8 +83,6 @@ public class ArticleController {
             }
             page = ++currentPage;
         }
-
-        System.out.println(page);
 
         currentPage = page;
         modelMap.addAttribute("articles", articleService.getByPage(page));
@@ -117,6 +117,18 @@ public class ArticleController {
         return "index";
     }
 
+    ArrayList getPagenation(ArrayList<Article> list) {
+        ArrayList arr = new ArrayList();
+        int n = list.size() / 10;
+        if (list.size() % 10 != 0) {
+            n++;
+           }
+
+        for (int i = 1; i < n + 1; i++) {
+            arr.add(i);
+        }
+        return arr;
+    }
     ArrayList getPagenation() {
         ArrayList arr = new ArrayList();
 
