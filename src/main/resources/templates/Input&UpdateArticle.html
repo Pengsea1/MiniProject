@@ -32,17 +32,17 @@
         <!-- Default input -->
             <div class="form-group w-50">
             <label for="fId" th:text="#{article.identifier}">ID</label>
-            <input type="text" disabled class="form-control" id="fId" th:field="*{id}">
+            <input type="text" readonly class="form-control" id="fId" th:field="*{id}">
         </div>
 
         <!-- Default input -->
         <div class="form-group w-50">
-            <label for="fTitle">TITLE</label>  <span th:if="${#fields.hasErrors('title')}"  class="text-danger">** Title can not be blank</span>
+            <label for="fTitle">TITLE</label>  <span th:if="${#fields.hasErrors('title')}"  class="text-danger"​​ th:text="#{article.title_not_empty}"></span>
             <input type="text" class="form-control" id="fTitle" th:field="*{title}">
         </div>
 
         <div class="form-group w-50">
-            <label for="fTitle">TITLE</label>
+            <label for="fTitle">Category</label>
 
             <select  class="browser-default custom-select" name="category" >
 

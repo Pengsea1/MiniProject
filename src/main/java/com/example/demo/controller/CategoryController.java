@@ -30,7 +30,13 @@ public class CategoryController {
     }
 
     @PostMapping("/updateCategory")
-    String updateCategory(@ModelAttribute Category category, ModelMap modelMap) {
+    String updateCategory(@Valid @ModelAttribute Category category,BindingResult bindingResult,ModelMap modelMap) {
+        if (bindingResult.hasErrors()) {
+            modelMap.addAttribute("category", category);
+            modelMap.addAttribute("st", -1);
+            return "Update&AddCategory";
+        }
+
         modelMap.addAttribute("category", new Category(categoryService.getAutoId() + 1, ""));
         categoryService.update(category);
         return "redirect:/category";
@@ -39,13 +45,14 @@ public class CategoryController {
     @GetMapping("/updatecate")
     String view(@RequestParam int id, ModelMap modelMap) {
         modelMap.addAttribute("category", categoryService.findById(id));
-        modelMap.addAttribute("");
+
         modelMap.addAttribute("st", -1);
         return "Update&AddCategory";
     }
 
     @GetMapping("/addCategory")
     String addNewCategory(ModelMap modelMap) {
+
         modelMap.addAttribute("category", new Category(categoryService.getAutoId() + 1, ""));
         return "Update&AddCategory";
     }

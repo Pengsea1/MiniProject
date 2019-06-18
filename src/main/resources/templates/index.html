@@ -34,13 +34,13 @@
     <div class="row">
           <div class="col-4 margin-de">
               <a href="/add">
-                  <button type="button" class=" btn btn-success margin-de ">Add New</button>
+                  <button type="button" class=" btn btn-success margin-de " th:text="#{article.add_new}"></button>
               </a>
           </div>
 
       <div class="col-4 margin-de">
         <form action="#" th:action="@{/search}">
-                    <label for="search">Search:</label>
+                    <label for="search"​​​ th:text="#{btn.search}"></label>
                     <input name="title" class="form-control w-50 d-inline"  id="search">
           </form>
       </div>

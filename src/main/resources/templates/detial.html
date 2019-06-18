@@ -37,7 +37,7 @@
     <hr>
     <div class="md-form input-group  input-group-lg mb-3 ">
         <div class="input-group-prepend col-6">
-            <span class="input-group-text md-addon" th:text="#{article.title}">TITLE</span>
+            <span class="input-group-text md-addon" th:text="#{article.title}">TITLE:</span>
         </div>
         <div class="col-6" th:text="*{title}"></div>
 
@@ -45,7 +45,14 @@
     <hr>
     <div class="md-form input-group input-group-lg">
         <div class="input-group-prepend col-6">
-            <span class="input-group-text md-addon" th:text="#{article.author}">AUTHOR</span>
+            <span class="input-group-text md-addon">Category Title:</span>
+        </div>
+        <div class="col-6" th:text="*{category.cateTitle}"></div>
+    </div>
+    <hr>
+    <div class="md-form input-group input-group-lg">
+        <div class="input-group-prepend col-6">
+            <span class="input-group-text md-addon" th:text="#{article.author}">AUTHOR:</span>
         </div>
         <div class="col-6" th:text="*{author}"></div>
     </div>
@@ -60,7 +67,7 @@
     <img class="justify-content-center" th:src="'img/'+*{img}" height="300px" width="300px">
 
 </div>
-<a href="/viewAll" style="margin-left: 600px;"><button type="button" class="btn btn-info">Back Home</button></a>
+<a href="/viewAll" style="margin-left: 600px;"><button type="button" class="btn btn-info" th:text="#{article.go_back}"></button></a>
 
 <div th:replace="fragment/footer ::footer"></div>
 </body>

@@ -136,27 +136,27 @@ public class ArticleController {
     String updateForm(ModelMap modelMap, @RequestParam(name = "id") Integer id) {
 
         modelMap.addAttribute("article", articleService.findById(id));
-        System.out.println(articleService.findById(id));
         modelMap.addAttribute("st", -1);
         modelMap.addAttribute("cate", categoryService.findAll());
-        return "InputForm";
+        return "Input&UpdateArticle";
 
     }
 
     @PostMapping("/updateArticle")
-    String Edit(@ModelAttribute Article article, @RequestParam("file") MultipartFile file, @RequestParam(name = "category") Integer c) {
+    String Edit(@Valid @ModelAttribute Article article,BindingResult bindingResult ,@RequestParam("file") MultipartFile file, @RequestParam(name = "category") Integer c,ModelMap modelMap) {
+        if (bindingResult.hasErrors()) {
+            article.setImg(configImage(file));
+            article.setCategory(categoryService.findById(c));
+            modelMap.addAttribute("article", article);
+            modelMap.addAttribute("st", -1);
+            modelMap.addAttribute("total", articleService.findAll().size());
+            modelMap.addAttribute("cate", categoryService.findAll());
+            return "Input&UpdateArticle";
+        }
 
         article.setImg(configImage(file));
         article.setCategory(categoryService.findById(c));
-        if (file.isEmpty()) {
-            article.setImg(articleService.findById(article.getId()).getImg());
-        }
-
-        try {
-            Files.copy(file.getInputStream(), Paths.get("C:/Users/ASUS/Desktop/ArticleManagement/src/main/resources/static/img", file.getOriginalFilename()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        System.out.println(article);
         articleService.update(article);
         return "redirect:/viewAll";
     }
@@ -172,7 +172,7 @@ public class ArticleController {
         modelMap.addAttribute("article", new Article(idAuto + 1, null, null, new Category(), null, "user.png"));
         modelMap.addAttribute("total", articleService.findAll().size());
         modelMap.addAttribute("cate", categoryService.findAll());
-        return "InputForm";
+        return "Input&UpdateArticle";
     }
 
     @PostMapping("/addArticle")
@@ -184,7 +184,7 @@ public class ArticleController {
             modelMap.addAttribute("total", articleService.findAll().size());
             modelMap.addAttribute("cate", categoryService.findAll());
 
-            return "InputForm";
+            return "Input&UpdateArticle";
         }
 
         article.setImg(configImage(file));
