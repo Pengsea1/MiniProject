@@ -17,5 +17,7 @@ public interface ArticleService {
     Article findById(Integer id);
 
     ArrayList<Article> getByPage(Integer pageNumber);
+    ArrayList<Article> searchByTitle(String title);
+    ArrayList<Article> searchByCategory(Integer id);
 
 }

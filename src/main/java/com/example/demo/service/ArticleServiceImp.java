@@ -15,6 +15,7 @@ public class ArticleServiceImp implements ArticleService {
 
     @Override
     public void addArticle(Article article) {
+        System.out.println("jhahahha");
         articleRepository.addArticle(article);
     }
 
@@ -42,5 +43,16 @@ public class ArticleServiceImp implements ArticleService {
     @Override
     public ArrayList<Article> getByPage(Integer pageNumber) {
         return articleRepository.getByPage(pageNumber);
+    }
+
+    @Override
+    public ArrayList<Article> searchByTitle(String title) {
+        return articleRepository.searchByTitle(title);
+    }
+
+    @Override
+    public ArrayList<Article> searchByCategory(Integer id) {
+        System.out.println(id);
+        return articleRepository.searchByCategory(id);
     }
 }

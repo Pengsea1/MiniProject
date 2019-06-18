@@ -5,7 +5,10 @@ import com.example.demo.service.CategoryService.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 public class CategoryController {
@@ -38,18 +41,22 @@ public class CategoryController {
         modelMap.addAttribute("category", categoryService.findById(id));
         modelMap.addAttribute("");
         modelMap.addAttribute("st", -1);
-        return "updateCate";
+        return "Update&AddCategory";
     }
 
     @GetMapping("/addCategory")
     String addNewCategory(ModelMap modelMap) {
         modelMap.addAttribute("category", new Category(categoryService.getAutoId() + 1, ""));
-        return "updateCate";
+        return "Update&AddCategory";
     }
 
     @PostMapping("/addCategory")
-    String AddNew(@ModelAttribute Category category) {
-        System.out.println(category);
+    String AddNew(@Valid @ModelAttribute Category category,BindingResult bindingResult,ModelMap modelMap) {
+        if (bindingResult.hasErrors()) {
+            modelMap.addAttribute("category", category);
+            return "Update&AddCategory";
+        }
+
         categoryService.add(category);
         return "redirect:/category";
     }

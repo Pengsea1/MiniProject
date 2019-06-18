@@ -31,28 +31,30 @@
 <body>
 <div th:replace="fragment/header ::header"></div>
 <div class="container-fluid">
-  <div class="row">
+    <div class="row">
           <div class="col-4 margin-de">
               <a href="/add">
                   <button type="button" class=" btn btn-success margin-de ">Add New</button>
               </a>
           </div>
+
       <div class="col-4 margin-de">
         <form action="#" th:action="@{/search}">
                     <label for="search">Search:</label>
-                    <input name="id" class="form-control w-50 d-inline"  id="search">
+                    <input name="title" class="form-control w-50 d-inline"  id="search">
           </form>
       </div>
+
       <div class="col-4 margin-de">
         <form  th:action="@{/filter}">
-            <select class="browser-default custom-select" id="choice" th:name="filter">
-                        <option value="" disabled selected>Select your option</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
+            <select class="browser-default custom-select" id="choice" th:name="id">
+                <option value="" disabled selected>Select your option</option>
+                       <th:block th:each="category: ${categories}">
+                        <option th:value="${category.getCateId()}" th:text="${category.getCateTitle()}"></option>
+                       </th:block>
+                </select>
+                <button type="submit" class=" btn btn-success margin-de ">Search</button>
         </form>
-
       </div>
   </div>
     <!--<div class="col-3 margin-de">-->

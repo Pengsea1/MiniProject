@@ -1,7 +1,10 @@
 package com.example.demo.repository.model;
 
+import javax.validation.constraints.NotBlank;
+
 public class Category {
     public int cateId;
+    @NotBlank
     public String cateTitle;
 
     public Category(int cateId, String cateTitle) {

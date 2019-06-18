@@ -15,7 +15,16 @@ public interface ArticleRepository {
                     @Result(column = "CATETITLE",property = "category.cateTitle")
             }
     )
-    ArrayList<Article> searchByName(String title);
+    ArrayList<Article> searchByTitle(String title);
+
+    @Select("SELECT * FROM TBARTICLE as a join tbcategory as c on a.cateid=c.cateid where a.cateid=#{id}")
+    @Results(
+            {
+                    @Result(column = "cateId",property = "category.cateId"),
+                    @Result(column = "CATETITLE",property = "category.cateTitle")
+            }
+    )
+    ArrayList<Article> searchByCategory(Integer id);
 
     @Insert("insert into tbArticle (title,CATEID,author,des,img) values(#{title},#{category.cateId},#{author},#{des},#{img})")
     void addArticle(Article article);

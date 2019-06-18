@@ -7,8 +7,11 @@ import com.example.demo.service.CategoryService.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.validation.Valid;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -35,13 +38,26 @@ public class ArticleController {
         modelMap.addAttribute("articles", articleService.getByPage(1));
         showBypage(1, modelMap);
         modelMap.addAttribute("total", articleService.findAll().size());
-
+        modelMap.addAttribute("categories", categoryService.findAll());
         return "index";
     }
-@GetMapping("/search")
-public String SearchById(){
-        return "";
-}
+
+    @GetMapping("/search")
+    public String SearchById(@RequestParam String title, ModelMap modelMap) {
+
+        modelMap.addAttribute("articles", articleService.searchByTitle(title));
+        modelMap.addAttribute("categories", categoryService.findAll());
+        return "index";
+    }
+
+    @GetMapping("/filter")
+    public String filterByCategory(@RequestParam Integer id, ModelMap modelMap) {
+
+        modelMap.addAttribute("articles", articleService.searchByCategory(id));
+        modelMap.addAttribute("categories", categoryService.findAll());
+        return "index";
+    }
+
     @GetMapping(value = {"/pagenation"})
     public String showBypage(@RequestParam(name = "page") int page, ModelMap modelMap) {
         System.out.println(getPagenation().size());
@@ -98,7 +114,7 @@ public String SearchById(){
         }
         modelMap.addAttribute("pages", tmp);
         modelMap.addAttribute("total", articleService.findAll().size());
-
+        modelMap.addAttribute("categories", categoryService.findAll());
         return "index";
     }
 
@@ -120,9 +136,9 @@ public String SearchById(){
     String updateForm(ModelMap modelMap, @RequestParam(name = "id") Integer id) {
 
         modelMap.addAttribute("article", articleService.findById(id));
-        System.out.println( articleService.findById(id));
+        System.out.println(articleService.findById(id));
         modelMap.addAttribute("st", -1);
-        modelMap.addAttribute("cate",categoryService.findAll());
+        modelMap.addAttribute("cate", categoryService.findAll());
         return "InputForm";
 
     }
@@ -131,7 +147,7 @@ public String SearchById(){
     String Edit(@ModelAttribute Article article, @RequestParam("file") MultipartFile file, @RequestParam(name = "category") Integer c) {
 
         article.setImg(configImage(file));
-article.setCategory(categoryService.findById(c));
+        article.setCategory(categoryService.findById(c));
         if (file.isEmpty()) {
             article.setImg(articleService.findById(article.getId()).getImg());
         }
@@ -141,8 +157,6 @@ article.setCategory(categoryService.findById(c));
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
         articleService.update(article);
         return "redirect:/viewAll";
     }
@@ -152,18 +166,26 @@ article.setCategory(categoryService.findById(c));
         int idAuto;
         if (articleService.findAll().size() == 0) {
             idAuto = 0;
-        }
-        else {
+        } else {
             idAuto = articleService.findAll().get(articleService.findAll().size() - 1).getId();
         }
-        modelMap.addAttribute("article", new Article(idAuto + 1, "", "",new Category(), "", "user.png"));
+        modelMap.addAttribute("article", new Article(idAuto + 1, null, null, new Category(), null, "user.png"));
         modelMap.addAttribute("total", articleService.findAll().size());
-        modelMap.addAttribute("cate",categoryService.findAll());
+        modelMap.addAttribute("cate", categoryService.findAll());
         return "InputForm";
     }
 
     @PostMapping("/addArticle")
-    public String addData(@ModelAttribute Article article, @RequestParam("file") MultipartFile file,@RequestParam Integer category) {
+    public String addData(@Valid @ModelAttribute Article article, BindingResult bindingResult, @RequestParam("file") MultipartFile file, @RequestParam Integer category, ModelMap modelMap) {
+
+        if (bindingResult.hasErrors()) {
+            article.setImg(configImage(file));
+            modelMap.addAttribute("article", article);
+            modelMap.addAttribute("total", articleService.findAll().size());
+            modelMap.addAttribute("cate", categoryService.findAll());
+
+            return "InputForm";
+        }
 
         article.setImg(configImage(file));
         article.setCategory(categoryService.findById(category));

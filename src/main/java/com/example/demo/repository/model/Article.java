@@ -1,10 +1,15 @@
 package com.example.demo.repository.model;
 
+import javax.validation.constraints.*;
+
 public class Article {
 
     public Integer id;
+    @NotBlank
     public String title;
+    @NotBlank
     public String author;
+
     public Category category;
     public String des;
     public String img;
@@ -38,18 +43,15 @@ public class Article {
         this.img = img;
     }
 
-    public Integer getId()
-    {
+    public Integer getId() {
         return id;
     }
 
-    public String getTitle()
-    {
+    public String getTitle() {
         return title;
     }
 
-    public String getAuthor()
-    {
+    public String getAuthor() {
         return author;
     }
 
@@ -65,13 +67,11 @@ public class Article {
                 '}';
     }
 
-    public String getDes()
-    {
+    public String getDes() {
         return des;
     }
 
-    public void setTitle(String title)
-    {
+    public void setTitle(String title) {
         this.title = title;
     }
 
