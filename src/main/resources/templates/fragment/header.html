@@ -1,0 +1,52 @@
+
+<!--Navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark primary-color" th:fragment="header">
+    <!-- Navbar brand -->
+    <a class="navbar-brand" href="#">Navbar</a>
+
+    <!-- Collapse button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+            aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="basicExampleNav">
+
+        <!-- Links -->
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/home">Home
+                    <span class="sr-only">(current)</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/categoryHome">Category</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Pricing</a>
+            </li>
+
+            <!-- Dropdown -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </li>
+
+        </ul>
+        <!-- Links -->
+
+        <div style="display: inline-block">
+          <a href="?lang=kh">  <img width="50px" src="data:image/png;base64,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"></a>
+          <a href="?lang=en">  <img width="50px" src="https://cdn0.iconfinder.com/data/icons/flags-of-the-world-2/128/england-3-512.png"></a>
+        </div>
+    </div>
+    <!-- Collapsible content -->
+
+</nav>
+<!--/.Navbar-->
