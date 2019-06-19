@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.ArrayList;
 @Repository
 public interface ArticleRepository {
-    @Select("SELECT * FROM TBARTICLE as a join tbcategory as c on a.cateid=c.cateid where a.TITLE ilike '%'||#{title}||'%'")
+    @Select("SELECT * FROM TBARTICLE as a join tbcategory as c on a.cateid=c.cateid where a.TITLE ilike '%'||#{title}||'%' order by a.id")
     @Results(
             {
                     @Result(column = "cateId",property = "category.cateId"),
@@ -17,7 +17,7 @@ public interface ArticleRepository {
     )
     ArrayList<Article> searchByTitle(String title);
 
-    @Select("SELECT * FROM TBARTICLE as a join tbcategory as c on a.cateid=c.cateid where a.cateid=#{id}")
+    @Select("SELECT * FROM TBARTICLE as a join tbcategory as c on a.cateid=c.cateid where a.cateid=#{id} order by a.id")
     @Results(
             {
                     @Result(column = "cateId",property = "category.cateId"),
@@ -35,7 +35,7 @@ public interface ArticleRepository {
     @Update("UPDATE tbArticle SET title = #{title},author=#{author},cateId=#{category.cateId},des=#{des},img=#{img} WHERE id=#{id}")
     void updateArticle(Article article);
 
-    @Select("SELECT * FROM TBARTICLE as a join tbcategory as c on a.cateid=c.cateid")
+    @Select("SELECT * FROM TBARTICLE as a join tbcategory as c on a.cateid=c.cateid order by a.id")
     @Results(
             {
                     @Result(column = "cateId",property = "category.cateId"),
@@ -44,7 +44,7 @@ public interface ArticleRepository {
     )
     ArrayList<Article> findAll();
 
-    @Select("SELECT * FROM TBARTICLE as a join tbcategory as c on a.cateid=c.cateid where a.id=#{id} ")
+    @Select("SELECT * FROM TBARTICLE as a join tbcategory as c on a.cateid=c.cateid where a.id=#{id} order by a.id")
     @Results(
             {
                     @Result(column = "cateId",property = "category.cateId"),
@@ -53,14 +53,13 @@ public interface ArticleRepository {
     )
     Article findById(Integer id);
 
-    @Select("select * from tbArticle as a join tbcategory as c on a.cateid=c.cateid LIMIT 10 OFFSET 10*(#{pageNumber}-1)")
+    @Select("select * from tbArticle as a join tbcategory as c on a.cateid=c.cateid  order by a. id LIMIT 10 OFFSET 10*(#{pageNumber}-1)")
     @Results(
             {
                     @Result(column = "cateId",property = "category.cateId"),
                     @Result(column = "CATETITLE",property = "category.cateTitle")
             }
     )
-
     ArrayList<Article> getByPage(Integer pageNumber);
 
 }

@@ -13,8 +13,7 @@
               rel="stylesheet">
         <!-- Material Design Bootstrap -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.2/css/mdb.min.css" rel="stylesheet">
-        <!-- JQuery -->
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
         <!-- Bootstrap tooltips -->
         <script type="text/javascript"
                 src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
@@ -24,15 +23,51 @@
         <!-- MDB core JavaScript -->
         <script type="text/javascript"
                 src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.2/js/mdb.min.js"></script>
-    <style>
-        body{
-            font-family: "Times New Roman ";
-        }
-    </style>
+        <style>
+            body {
+                font-family: "Times New Roman ";
+            }
+        </style>
     </head>
     <body>
         <div th:replace="fragment/header ::header"></div>
         <div layout:fragment="body"></div>
         <div th:replace="fragment/footer ::footer"></div>
+        <!-- JQuery -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script>
+
+            function changeLanguage(language) {
+                var currentUrl = location.pathname+location.search;
+                if (currentUrl.indexOf("?") == -1){
+                    location.href = currentUrl+"?lang="+language;
+                }else {
+                    if (currentUrl.indexOf("?lang") != -1) {
+                        location.href = currentUrl.split("?lang", 1) + "?lang=" + language;
+                    } else if (currentUrl.indexOf("&lang") != -1) {
+                        location.href = currentUrl.split("&lang", 1) + "&lang=" + language;
+                    }else {
+                        location.href = currentUrl + "&lang=" + language;
+                    }
+                }
+            }
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#img').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+            $("#upl").change(function () {
+                readURL(this);
+            });
+            // Material Select Initialization
+            $(document).ready(function() {
+                $('.mdb-select').materialSelect();
+            });
+        </script>
     </body>
+
 </html>
