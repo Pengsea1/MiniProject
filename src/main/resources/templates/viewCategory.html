@@ -10,7 +10,7 @@
 </head>
 <body>
 <div layout:fragment="body">
-<!--<div th:replace="fragment/header ::header"></div>-->
+
 <a href="/addCategory">
     <button type="button" class="btn btn-info">ADD</button>
 </a>
@@ -26,7 +26,7 @@
     <tbody>
     <tr th:each="category : ${categories}">
         <td scope="row" th:text="${category.getCateId()}" ></td>
-        <td th:text="${category.getCateTitle()}">Mark</td>
+        <td th:text="${category.getCateTitle()}"></td>
         <td><a th:href="@{/updatecate(id=${category.cateId})}">
             <button class="btn tbn-primary">Update</button>
         </a><a th:href="@{/deletecate(id=${category.cateId})}">
@@ -35,7 +35,6 @@
     </tr>
     </tbody>
 </table>
-<!--<div th:replace="fragment/footer ::footer"></div>-->
 </div>
 </body>
 </html>

@@ -26,7 +26,7 @@
     <title>Title</title>
 </head>
 <body>
-<!--<div th:replace="fragment/header ::header"></div>-->
+
 <div layout:fragment="body">
 <form th:object="${category}"  th:action="${st!=-1} ? '/addCategory':'/updateCategory'" method="post">
     <fieldset>
@@ -37,7 +37,7 @@
                 <input type="text" class="form-control" readonly id="fId" th:field="*{cateId}">
             </div>
             <div class="form-group">
-                <label for="fTitle">TITLE</label>
+                <label for="fTitle" th:text="#{article.title}">TITLE</label>
                 <input type="text" class="form-control" id="fTitle" th:field="*{cateTitle}">
             </div>
             <div>
@@ -45,11 +45,11 @@
                     <button type="submit" class="btn btn-info" th:text="${st!=-1} ? 'Add':'Update'" ></button>
                 </a>
                 <a href="/category">
-                    <button type="button" class="btn btn-info">Back Home</button>
+                    <button type="button" class="btn btn-info" th:text="#{article.go_back}">Back Home</button>
                 </a>
             </div>
         </div>
-        </div>
+
     </fieldset>
 </form>
 

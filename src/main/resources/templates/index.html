@@ -8,7 +8,6 @@
     <style>
         .margin-de {
             margin-top: .375rem;
-
         }
     </style>
 </head>
@@ -24,22 +23,22 @@
                 </a>
             </div>
 
-            <div class="col-4 margin-de">
+            <div class="col-3 margin-de" style="    margin-top: 15px;">
                 <form action="#" th:action="@{/search}">
                     <label for="search" ​​​ th:text="#{btn.search}"></label>
                     <input name="title" class="form-control w-50 d-inline" id="search">
                 </form>
             </div>
 
-            <div class="col-4 margin-de">
+            <div class="col-5 margin-de">
                 <form th:action="@{/filter}">
-                    <select class="browser-default custom-select" id="choice" th:name="id">
-                        <option value="" disabled selected>Select your option</option>
+                    <select class="browser-default custom-select" style=" width: 50%;"  id="choice" th:name="id">
+                        <option value="" disabled selected​​​ th:text="#{article.selectOption}"></option>
                         <th:block th:each="category: ${categories}">
                             <option th:value="${category.getCateId()}" th:text="${category.getCateTitle()}"></option>
                         </th:block>
                     </select>
-                    <button type="submit" class=" btn btn-success margin-de ">Search</button>
+                    <button type="submit" class=" btn btn-success margin-de "  th:text="#{btn.search}"></button>
                 </form>
             </div>
         </div>
@@ -60,13 +59,13 @@
         <!--</div>-->
         <!--</div>-->
     </div>
-    <table class="table">
+    <table class="table" style="border: beige 1px solid">
         <thead class="black white-text">
         <tr>
-            <th scope="col" th:text="#{article.identifier}">ID</th>
+            <th style="padding-left: 45px" scope="col" th:text="#{article.identifier}">ID</th>
             <th scope="col" th:text="#{article.title}">TITLE</th>
             <th scope="col" th:text="#{article.author}">Author</th>
-            <th scope="col">Category</th>
+            <th scope="col" th:text="#{article.category}">Category</th>
             <th scope="col" th:text="#{article.description}">Description</th>
             <th scope="col" th:text="#{article.thumbnail}">Image</th>
             <th scope="col"></th>
@@ -76,7 +75,7 @@
         <tbody>
         <input type="hidden" th:value="${articles}">
         <tr th:each="article : ${articles}">
-            <td th:text="${article.getId()}"></td>
+            <td style="padding-left: 45px" th:text="${article.getId()}"></td>
             <td th:text="${article.getTitle()}"></td>
             <td th:text="${article.getAuthor()}"></td>
             <td th:text="${article.category.cateTitle}"></td>

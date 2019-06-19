@@ -12,44 +12,44 @@
 
 <div layout:fragment="body">
 <div class="container w-50" th:object="${article}">
-    <h6 th:utext="#{article.brand}"></h6>
+    <div style="font-size: 35px; margin-left: 20%; color: red " th:text="#{article.brand}"></div>
     <div class="md-form input-group  input-group-lg mb-3 ">
         <div class="input-group-prepend col-6">
             <span class="input-group-text md-addon" th:text="#{article.identifier}"></span>
         </div>
-        <div class="col-6" th:text="*{id}"></div>
+        <div class="col-6" style="font-size: 25px" th:text="*{id}"></div>
     </div>
     <hr>
     <div class="md-form input-group  input-group-lg mb-3 ">
         <div class="input-group-prepend col-6">
             <span class="input-group-text md-addon" th:text="#{article.title}">TITLE:</span>
         </div>
-        <div class="col-6" th:text="*{title}"></div>
+        <div class="col-6" style="font-size: 25px" th:text="*{title}"></div>
 
     </div>
     <hr>
     <div class="md-form input-group input-group-lg">
         <div class="input-group-prepend col-6">
-            <span class="input-group-text md-addon">Category Title:</span>
+            <span class="input-group-text md-addon" th:text="#{article.cateTitle}">Category Title:</span>
         </div>
-        <div class="col-6" th:text="*{category.cateTitle}"></div>
+        <div class="col-6" style="font-size: 25px" th:text="*{category.cateTitle}"></div>
     </div>
     <hr>
     <div class="md-form input-group input-group-lg">
         <div class="input-group-prepend col-6">
             <span class="input-group-text md-addon" th:text="#{article.author}">AUTHOR:</span>
         </div>
-        <div class="col-6" th:text="*{author}"></div>
+        <div class="col-6" style="font-size: 25px" th:text="*{author}" ></div>
     </div>
     <hr>
     <div class="md-form input-group input-group-lg">
         <div class="input-group-prepend col-6">
             <span class="input-group-text md-addon" th:text="#{article.description}">DESCRIPTION</span>
         </div>
-        <div class="col-6" th:text="*{des}"></div>
+        <div class="col-6" style="font-size: 25px" th:text="*{des}"></div>
     </div>
     <hr>
-    <img class="justify-content-center" th:src="'img/'+*{img}" height="300px" width="300px">
+    <img style="margin-left: 25%" th:src="'img/'+*{img}" height="300px" width="300px">
 
 </div>
 <a href="/viewAll" style="margin-left: 600px;"><button type="button" class="btn btn-info" th:text="#{article.go_back}"></button></a>
